@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}О нас | MathMaster{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Основной заголовок -->
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-primary mb-3">
+            О MathMaster
+        </h1>
+        <p class="lead text-muted fs-4">Инновационная платформа для изучения математики</p>
+    </div>
+
+    <!-- Карточки с информацией -->
+    <div class="row g-4">
+        <!-- Миссия -->
+        <div class="col-md-4">
+            <div class="card h-100 border rounded-3" style="box-shadow: none;">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-primary bg-opacity-10 p-3 rounded me-3">
+                            <i class="fas fa-bullseye fa-2x text-primary"></i>
+                        </div>
+                        <h3 class="mb-0">Наша миссия</h3>
+                    </div>
+                    <p class="card-text fs-5">
+                        Сделать изучение математики доступным и увлекательным для школьников и студентов.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Команда -->
+        <div class="col-md-4">
+            <div class="card h-100 border rounded-3" style="box-shadow: none;">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-success bg-opacity-10 p-3 rounded me-3">
+                            <i class="fas fa-users fa-2x text-success"></i>
+                        </div>
+                        <h3 class="mb-0">Наша команда</h3>
+                    </div>
+                    <p class="card-text fs-5">
+                        Профессиональные математики и разработчики работают вместе над созданием лучшего образовательного опыта.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Контакты -->
+        <div class="col-md-4">
+            <div class="card h-100 border rounded-3" style="box-shadow: none;">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-info bg-opacity-10 p-3 rounded me-3">
+                            <i class="fas fa-envelope fa-2x text-info"></i>
+                        </div>
+                        <h3 class="mb-0">Контакты</h3>
+                    </div>
+                    <p class="card-text fs-5 mb-4">
+                        <i class="fas fa-envelope me-2 text-muted"></i>info@mathmaster.ru<br>
+                        <i class="fas fa-phone me-2 text-muted"></i>+7 (800) 123-45-67
+                    </p>
+                    <a href="mailto:info@mathmaster.ru" class="btn btn-primary px-4 py-2" style="text-decoration: none;">
+                        <i class="fas fa-paper-plane me-2"></i>Написать нам
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Дополнительный раздел -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card border rounded-3" style="box-shadow: none;">
+                <div class="card-body p-5 text-center bg-light">
+                    <h2 class="mb-4">Почему выбирают нас?</h2>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="p-3">
+                                <i class="fas fa-chart-line fa-3x text-primary mb-3"></i>
+                                <h4>Эффективность</h4>
+                                <p class="mb-0">Наши методы обучения доказали свою эффективность</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3">
+                                <i class="fas fa-user-graduate fa-3x text-primary mb-3"></i>
+                                <h4>Опыт</h4>
+                                <p class="mb-0">10 лет успешной работы в образовании</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3">
+                                <i class="fas fa-lightbulb fa-3x text-primary mb-3"></i>
+                                <h4>Инновации</h4>
+                                <p class="mb-0">Используем современные технологии обучения</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

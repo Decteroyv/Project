@@ -1,0 +1,375 @@
+{% extends "base.html" %}
+
+{% block title %}Задания{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <!-- Навигация по вкладкам -->
+            <ul class="nav nav-tabs mb-4" id="tasksTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="math-tab" data-bs-toggle="tab"
+                            data-bs-target="#math-tab-pane" type="button" role="tab"
+                            style="border-bottom: 3px solid transparent;">
+                        <i class="fas fa-calculator me-2"></i>Арифметика
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="geometry-tab" data-bs-toggle="tab"
+                            data-bs-target="#geometry-tab-pane" type="button" role="tab"
+                            style="border-bottom: 3px solid transparent;">
+                        <i class="fas fa-shapes me-2"></i>Геометрия
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="derivative-tab" data-bs-toggle="tab"
+                            data-bs-target="#derivative-tab-pane" type="button" role="tab"
+                            style="border-bottom: 3px solid transparent;">
+                        <i class="fas fa-function me-2"></i>Производные
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="integral-tab" data-bs-toggle="tab"
+                            data-bs-target="#integral-tab-pane" type="button" role="tab"
+                            style="border-bottom: 3px solid transparent;">
+                        <i class="fas fa-integral me-2"></i>Интегралы
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Содержимое вкладок -->
+            <div class="tab-content" id="tasksTabsContent">
+                <!-- Вкладка с математикой -->
+                <div class="tab-pane fade" id="math-tab-pane" role="tabpanel">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h3 class="card-title mb-0">Арифметические примеры</h3>
+                        </div>
+                        <div class="card-body text-center py-4">
+                            <div class="math-problem">
+                                <h4 class="mb-4">Решите пример:</h4>
+                                <div class="display-4 mb-4 fw-bold text-primary" id="math-task">
+                                    {{ math_task }}
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6">
+                                        <div class="input-group mb-3">
+                                            <input type="number" class="form-control form-control-lg math-answer"
+                                                   placeholder="Ваш ответ" id="mathAnswer">
+                                            <button class="btn btn-success btn-lg" type="button"
+                                                    onclick="checkMathAnswer()">
+                                                <i class="fas fa-check me-2"></i>Проверить
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="math-result" class="mt-3 fs-4 fw-bold"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Вкладка с геометрией -->
+                <div class="tab-pane fade" id="geometry-tab-pane" role="tabpanel">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h3 class="card-title mb-0">Геометрические задачи</h3>
+                        </div>
+                        <div class="card-body text-center py-4">
+                            <div class="geometry-problem">
+                                <h4 class="mb-4 fs-5">Решите задачу:</h4>
+                                <div id="geometry-figure" class="mb-4" style="min-height: 150px;">
+                                    {{ geometry_figure|safe }}
+                                </div>
+                                <div class="fs-5 mb-4 fw-bold text-success" id="geometry-task">
+                                    {{ geometry_task }}
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6">
+                                        <div class="input-group mb-3">
+                                            <input type="number" class="form-control form-control-lg geometry-answer"
+                                                   placeholder="Ваш ответ" id="geometryAnswer" step="0.01">
+                                            <button class="btn btn-success btn-lg" type="button"
+                                                    onclick="checkGeometryAnswer()">
+                                                <i class="fas fa-check me-2"></i>Проверить
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="geometry-result" class="mt-3 fs-5 fw-bold"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Вкладка с производными -->
+                <div class="tab-pane fade" id="derivative-tab-pane" role="tabpanel">
+                    <div class="card shadow-sm">
+                        <div class="card-header" style="background-color: #6f42c1; color: white;">
+                            <h3 class="card-title mb-0">Производные</h3>
+                        </div>
+                        <div class="card-body text-center py-4">
+                            <div class="derivative-problem">
+                                <h4 class="mb-4">Найдите производную:</h4>
+                                <div class="mb-4 fw-bold" style="font-size: 2rem; color: #6f42c1;">
+                                    <div id="derivative-task" class="math-expression">
+                                        \(\displaystyle \frac{d}{dx}\Bigl({{ derivative_task }}\Bigr) =\ ?\)
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-8">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control form-control-lg derivative-answer"
+                                                   placeholder="Ваш ответ" id="derivativeAnswer">
+                                            <button class="btn btn-success btn-lg" type="button"
+                                                    onclick="checkDerivativeAnswer()">
+                                                <i class="fas fa-check me-2"></i>Проверить
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="derivative-result" class="mt-3 fs-4 fw-bold"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Вкладка с интегралами -->
+                <div class="tab-pane fade" id="integral-tab-pane" role="tabpanel">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-danger text-white">
+                            <h3 class="card-title mb-0">Интегралы</h3>
+                        </div>
+                        <div class="card-body text-center py-4">
+                            <div class="integral-problem">
+                                <h4 class="mb-4">Вычислите интеграл:</h4>
+                                <div class="mb-4 fw-bold" style="font-size: 2rem; color: #dc3545;">
+                                    <div id="integral-task" class="math-expression">
+                                        \(\displaystyle \int\Bigl({{ integral_task }}\Bigr)dx\ =\ ?\)
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-8">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control form-control-lg integral-answer"
+                                                   placeholder="Ваш ответ" id="integralAnswer">
+                                            <button class="btn btn-success btn-lg" type="button"
+                                                    onclick="checkIntegralAnswer()">
+                                                <i class="fas fa-check me-2"></i>Проверить
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="integral-result" class="mt-3 fs-4 fw-bold"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- Подключаем MathJax для красивых формул -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Восстановление активной вкладки
+    const savedTab = localStorage.getItem('activeTab') || 'math-tab';
+    const tabToActivate = document.getElementById(savedTab);
+    if (tabToActivate) {
+        const tab = new bootstrap.Tab(tabToActivate);
+        tab.show();
+    }
+
+    // Сохранение при переключении вкладок
+    document.querySelectorAll('.nav-link').forEach(tab => {
+        tab.addEventListener('click', function() {
+            localStorage.setItem('activeTab', this.id);
+        });
+    });
+});
+// Функция проверки математического ответа
+function checkMathAnswer() {
+    const userAnswer = document.getElementById('mathAnswer').value;
+    const resultDiv = document.getElementById('math-result');
+
+    if (!userAnswer) {
+        resultDiv.textContent = "Введите ответ!";
+        resultDiv.className = "mt-3 fs-4 fw-bold text-danger";
+        return;
+    }
+
+    fetch('/check_math_answer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `answer=${encodeURIComponent(userAnswer)}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        resultDiv.textContent = data.message;
+        resultDiv.className = data.correct
+            ? "mt-3 fs-4 fw-bold text-success"
+            : "mt-3 fs-4 fw-bold text-danger";
+
+        if (data.correct) {
+            setTimeout(() => location.reload(), 1500);
+        }
+    })
+}
+
+// Функция проверки геометрического ответа
+function checkGeometryAnswer() {
+    const userAnswer = document.getElementById('geometryAnswer').value;
+    const resultDiv = document.getElementById('geometry-result');
+
+    if (!userAnswer) {
+        resultDiv.textContent = "Введите ответ!";
+        resultDiv.className = "mt-3 fs-5 fw-bold text-danger";
+        return;
+    }
+
+    fetch('/check_geometry_answer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `answer=${encodeURIComponent(userAnswer)}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        resultDiv.textContent = data.message;
+        resultDiv.className = data.correct
+            ? "mt-3 fs-5 fw-bold text-success"
+            : "mt-3 fs-5 fw-bold text-danger";
+
+        if (data.correct) {
+            setTimeout(() => location.reload(), 1500);
+        }
+    })
+}
+
+// Функция проверки производной
+function checkDerivativeAnswer() {
+    const userAnswer = document.getElementById('derivativeAnswer').value;
+    const resultDiv = document.getElementById('derivative-result');
+
+    if (!userAnswer) {
+        resultDiv.textContent = "Введите ответ!";
+        resultDiv.className = "mt-3 fs-4 fw-bold text-danger";
+        return;
+    }
+
+    fetch('/check_derivative_answer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `answer=${encodeURIComponent(userAnswer)}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        resultDiv.textContent = data.message;
+        resultDiv.className = data.correct
+            ? "mt-3 fs-4 fw-bold text-success"
+            : "mt-3 fs-4 fw-bold text-danger";
+
+        if (data.correct) {
+            setTimeout(() => location.reload(), 1500);
+        }
+    })
+}
+
+// Функция проверки интеграла
+function checkIntegralAnswer() {
+    const userAnswer = document.getElementById('integralAnswer').value;
+    const resultDiv = document.getElementById('integral-result');
+
+    if (!userAnswer) {
+        resultDiv.textContent = "Введите ответ!";
+        resultDiv.className = "mt-3 fs-4 fw-bold text-danger";
+        return;
+    }
+
+    fetch('/check_integral_answer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `answer=${encodeURIComponent(userAnswer)}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        resultDiv.textContent = data.message;
+        resultDiv.className = data.correct
+            ? "mt-3 fs-4 fw-bold text-success"
+            : "mt-3 fs-4 fw-bold text-danger";
+
+        if (data.correct) {
+            setTimeout(() => location.reload(), 1500);
+        }
+    })
+}
+</script>
+
+<style>
+    .nav-tabs {
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .nav-link {
+        color: #495057 !important;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        margin-right: 0.5rem;
+        transition: none;
+    }
+
+    .nav-link:hover {
+        color: #0d6efd !important;
+        border-color: transparent;
+    }
+
+    .nav-link.active {
+        color: #0d6efd !important;
+        background-color: transparent !important;
+        border: none;
+    }
+
+    #geometry-figure svg {
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .tab-pane {
+        padding-top: 1rem;
+    }
+
+    .fa-function:before {
+        content: "f(x)";
+        font-style: normal;
+        font-weight: bold;
+    }
+
+    .fa-integral:before {
+        content: "∫";
+        font-style: normal;
+        font-weight: bold;
+    }
+
+    .math-expression {
+    font-family: "Times New Roman", Times, serif;
+    letter-spacing: -0.5px;
+    }
+
+</style>
+{% endblock %}
